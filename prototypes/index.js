@@ -24,7 +24,7 @@ const kittyPrompts = {
       return animal.color === 'orange'
       ? (newList.push(animal.name), newList)
       : newList
-    }, []);
+    }, [])
     /**
      * Note: reduce takes in a reducer function and a default value 
      * (empty array in this case)
@@ -35,7 +35,7 @@ const kittyPrompts = {
 
   sortByAge(animals) {
     // Sort the kitties by their age
-    return animals.sort((a, b) => b.age - a.age);
+    return animals.sort((a, b) => b.age - a.age)
   },
 
   growUp(animals) {
@@ -75,7 +75,7 @@ const kittyPrompts = {
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
-  membersBelongingToClubs() {
+  membersBelongingToClubs(clubs) {
     // Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
     // Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
@@ -84,11 +84,18 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return clubs.reduce((peopleWithClubs, clubDetails) => {
+      clubDetails.members.forEach(member => {
+        peopleWithClubs[member] 
+        ? peopleWithClubs[member].push(clubDetails.club)
+        : peopleWithClubs[member] = [clubDetails.club]
+      })
+      return peopleWithClubs
+    }, {})
+    /**
+     * Note: Loop over each member, create new object key with name as needed,
+     * create new array where necessary. Do for each club detail entry.
+     */
   }
 };
 
