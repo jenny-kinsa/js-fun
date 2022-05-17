@@ -15,7 +15,6 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // SINGLE DATASETS
 // =================================================================
-console.log('hello');
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
   orangePetNames(animals) {
