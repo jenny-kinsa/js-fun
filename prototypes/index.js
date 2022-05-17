@@ -25,6 +25,12 @@ const kittyPrompts = {
       ? (newList.push(animal.name), newList)
       : newList
     }, []);
+    /**
+     * Note: reduce takes in a reducer function and a default value 
+     * (empty array in this case)
+     * If an animal is orange, add them to the new list and return it
+     * If an animal isn't orange, just pass on the new list
+     */
   },
 
   sortByAge(animals) {
