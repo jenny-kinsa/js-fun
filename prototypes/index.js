@@ -92,7 +92,6 @@ const modPrompts = {
     //   { mod: 3, studentsPerInstructor: 10 },
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
-
     return mods.map(entry => ({
       mod: entry.mod,
       studentsPerInstructor: entry.students / entry.instructors
@@ -101,6 +100,7 @@ const modPrompts = {
      * Note: Map can be used here because the new array
      * has the same number of entries as the original.
      */
+
   }
 };
 
@@ -129,11 +129,7 @@ const cakePrompts = {
     //    { flavor: 'yellow', inStock: 14 },
     //    ..etc
     // ]
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return cakes.map(cake => ({ flavor: cake.cakeFlavor, inStock: cake.inStock }))
   },
 
   onlyInStock() {
@@ -156,21 +152,13 @@ const cakePrompts = {
     // },
     // ..etc
     // ]
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return cakes.filter(cake => cake.inStock)
   },
 
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return cakes.reduce((total, { inStock }) => total + inStock, 0)
   },
 
   allToppings() {
@@ -178,10 +166,16 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return Object.keys(cakes.reduce((uniqueToppings, { toppings }) => {
+      toppings.forEach(topping => {
+        if (!uniqueToppings[topping]) uniqueToppings[topping] = 0
+      })
+      return uniqueToppings
+    }, {}))
+    /**
+     * Notes: Build object with unique toppings as keys to use as a 
+     * O(1) index search. Convert object keys to final array.
+     */
   },
 
   groceryList() {
@@ -195,10 +189,14 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return cakes.reduce((groceries, { toppings }) => {
+      toppings.forEach(topping => {
+        groceries[topping]
+        ? groceries[topping] += 1
+        : groceries[topping] = 1 
+      })
+      return groceries
+    }, {})
   }
 };
 
