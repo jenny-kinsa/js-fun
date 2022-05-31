@@ -11,6 +11,7 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 const { constellations, stars } = require('./datasets/astronomy');
 const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
+const { books } = require('./datasets/books');
 
 
 // SINGLE DATASETS
@@ -189,13 +190,13 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    return cakes.reduce((groceries, { toppings }) => {
+    return cakes.reduce((list, { toppings }) => {
       toppings.forEach(topping => {
-        groceries[topping]
-        ? groceries[topping] += 1
-        : groceries[topping] = 1 
+        list[topping]
+        ? list[topping] += 1
+        : list[topping] = 1 
       })
-      return groceries
+      return list
     }, {})
   }
 };
@@ -226,11 +227,7 @@ const classPrompts = {
     //   { roomLetter: 'E', program: 'FE', capacity: 22 },
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return classrooms.filter(room => room.program === 'FE')
   },
 
   totalCapacities() {
@@ -241,19 +238,17 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return classrooms.reduce((sums, room) => {
+      room.program === 'FE'
+      ? sums.feCapacity += room.capacity
+      : sums.beCapacity += room.capacity
+      return sums
+    }, { feCapacity: 0, beCapacity: 0 })
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return classrooms.sort((a, b) => a.capacity - b.capacity)
   }
 };
 
@@ -266,7 +261,7 @@ const classPrompts = {
 // DATASET: books from './datasets/books
 
 const bookPrompts = {
-  removeViolence() {
+  removeViolence(books) {
     // Your function should access the books data through a parameter (it is being passed as an argument in the test file)
     // return an array of all book titles that are not horror or true crime. Eg:
 
@@ -275,13 +270,9 @@ const bookPrompts = {
     //   'The Handmaid\'s Tale', 'The Metamorphosis', 'Brave New World', 'Life of Pi',
     //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
     //   'Catch-22', 'Treasure Island']
-
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
-
+    return books
+      .filter(({ genre }) => genre !== 'True Crime' && genre !== 'Horror')
+      .map(book => book.title)
   },
   getNewBooks() {
     // return an array of objects containing all books that were
@@ -291,10 +282,9 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return books
+      .filter(({ published }) => published >= 1990)
+      .map(book => ({ title: book.title, year: book.published }))
   }
 
 };
